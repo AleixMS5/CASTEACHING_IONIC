@@ -62,6 +62,12 @@ export default defineComponent({
         mdIcon: mailSharp
       },
       {
+        title: 'Video 1',
+        url: '/video/1',
+        iosIcon: mailOutline,
+        mdIcon: mailSharp
+      },
+      {
         title: 'Outbox',
         url: '/folder/Outbox',
         iosIcon: paperPlaneOutline,
