@@ -17,8 +17,27 @@
       </ion-header>
 
       <div id="container">
-        <h1>user</h1>
-        name: {{this.user && this.user.name}}
+        <ion-list>
+
+
+          <ion-item>
+
+            <ion-avatar slot="start">
+              <img alt="Silhouette of a person's head"
+                   :src="this.user.profile_photo_url"/>
+            </ion-avatar>
+
+          </ion-item>
+          <ion-item>
+
+            <ion-label> {{ this.user && this.user.name }}</ion-label>
+
+          </ion-item>
+          <ion-item>
+            <ion-label> {{ this.user && this.user.email }}</ion-label>
+          </ion-item>
+
+        </ion-list>
       </div>
     </ion-content>
   </ion-page>
@@ -42,31 +61,33 @@ import store from "../store";
 export default {
   name: "UserU",
   components: {
-  IonButtons,
-      IonContent,
-      IonHeader,
-      IonMenuButton,
-      IonPage,
-      IonTitle,
+    IonButtons,
+    IonContent,
+    IonHeader,
+    IonMenuButton,
+    IonPage,
+    IonTitle,
     // eslint-disable-next-line vue/no-unused-components
-      IonToolbar,IonCard,
+    IonToolbar, IonCard,
     // eslint-disable-next-line vue/no-unused-components
-      IonCardHeader,
+    IonCardHeader,
     // eslint-disable-next-line vue/no-unused-components
-      IonCardTitle,
+    IonCardTitle,
     // eslint-disable-next-line vue/no-unused-components
-      IonCardSubtitle,
+    IonCardSubtitle,
     // eslint-disable-next-line vue/no-unused-components
-      IonCardContent
-},
-  data(){
-    return{user:{}
+    IonCardContent
+  },
+  data() {
+    return {
+      user: {}
 
     }
 
   },
-  async mounted (){
-    this.user=await store.get('user')
+  async mounted() {
+    this.user = await store.get('user')
+
   }
 }
 </script>

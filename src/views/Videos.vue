@@ -101,6 +101,7 @@
           <ion-label>
             <h2>{{ video.title }}</h2>
             <p>{{ video.description }}</p>
+            <a @click.prevent="see(video.id)">ver:</a>
           </ion-label>
         </ion-item>
 
@@ -161,6 +162,9 @@ export default {
     },
     async fetchVideos(){
       this.videos= await api.videos()
+    },
+    see(id){
+      this.$router.push({ path: '/video/'+id })
     }
   }
 }
