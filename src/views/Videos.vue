@@ -112,7 +112,7 @@
 
 <script>
 import casteaching from "@acacha/casteaching";
-const api = casteaching({baseUrl: 'http://casteaching.test/api/'})
+const api = casteaching({baseUrl: 'https://casteaching.test/api/'})
 import {
   IonAvatar,
   IonItem,

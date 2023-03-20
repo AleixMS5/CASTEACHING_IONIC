@@ -38,7 +38,7 @@
 <script>
 import casteaching from "@acacha/casteaching";
 
-const api = casteaching({baseUrl: 'http://casteaching.test/api/'})
+const api = casteaching({baseUrl: 'https://casteaching.test/api/'})
 import {
   IonButtons,
   IonCardHeader, IonCardSubtitle, IonCardTitle,
@@ -73,8 +73,13 @@ export default {
   }
   ,
   async created() {
-
-    this.video = await api.video.show(this.$route.params.id)
+    try {
+      this.video = await api.video.show(this.$route.params.id)
+    }catch (e) {
+      console.log(e);
+      //TODO POSAR TOAST
+    }
+   
   }
 }
 </script>
