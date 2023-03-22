@@ -52,7 +52,7 @@ import {
   IonMenuButton,
   IonPage,
   IonTitle,
-  IonToolbar
+  IonToolbar, loadingController
 } from "@ionic/vue";
 import {Device} from "@capacitor/device";
 import axios from 'axios';
@@ -82,6 +82,12 @@ export default {
     }
   },methods: {
     async login() {
+      const loading = await loadingController.create({
+        message: "carregant l'usuari",
+        duration: 1000
+      });
+
+      loading.present();
       let token=null
       const info =await Device.getInfo();
       console.log(info)

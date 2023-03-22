@@ -42,7 +42,7 @@ import {
   IonMenuButton,
   IonPage,
   IonTitle,
-  IonToolbar
+  IonToolbar, loadingController
 } from "@ionic/vue";
 import store from "../store";
 export default {
@@ -64,6 +64,12 @@ export default {
   },
   methods:{
     async logout(){
+      const loading = await loadingController.create({
+        message: "carregant l'usuari",
+        duration: 1000
+      });
+
+      loading.present();
       await store.set('token',null)
       await store.set('user',null)
 

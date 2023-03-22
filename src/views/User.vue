@@ -17,27 +17,26 @@
       </ion-header>
 
       <div id="container">
-        <ion-list>
+        <ion-card>
 
+        <ion-card-header>
+          <ion-avatar >
+            <img alt="Silhouette of a person's head"
+                 :src="this.user.profile_photo_url"/>
+          </ion-avatar>
+          <ion-card-subtitle>{{ this.user && this.user.name }}</ion-card-subtitle>
+        </ion-card-header>
 
-          <ion-item>
+        <ion-card-content>
+          {{ this.user && this.user.email }}
 
-            <ion-avatar slot="start">
-              <img alt="Silhouette of a person's head"
-                   :src="this.user.profile_photo_url"/>
-            </ion-avatar>
+        </ion-card-content>
+          <ion-card-content>
+            <ion-button @click="login">Refresh</ion-button>
+          </ion-card-content>
 
-          </ion-item>
-          <ion-item>
+        </ion-card>
 
-            <ion-label> {{ this.user && this.user.name }}</ion-label>
-
-          </ion-item>
-          <ion-item>
-            <ion-label> {{ this.user && this.user.email }}</ion-label>
-          </ion-item>
-
-        </ion-list>
       </div>
     </ion-content>
   </ion-page>
@@ -45,7 +44,7 @@
 
 <script>
 import {
-  IonButtons,
+  IonButton,IonButtons,
   IonCard, IonCardContent,
   IonCardHeader, IonCardSubtitle, IonCardTitle,
   IonContent,
@@ -53,20 +52,23 @@ import {
   IonMenuButton,
   IonPage,
   IonTitle,
-  IonToolbar
+  IonToolbar,IonAvatar
 } from "@ionic/vue";
 import store from "../store";
+import axios from 'axios'
+import { loadingController } from '@ionic/vue';
 
 
-export default {
+export default  {
   name: "UserU",
   components: {
     IonButtons,
+    IonButton,
     IonContent,
     IonHeader,
     IonMenuButton,
     IonPage,
-    IonTitle,
+    IonTitle,IonAvatar,
     // eslint-disable-next-line vue/no-unused-components
     IonToolbar, IonCard,
     // eslint-disable-next-line vue/no-unused-components
@@ -89,6 +91,43 @@ export default {
     this.user = await store.get('user')
 
   }
+  ,
+  methods: {
+    async login() {
+      const loading = await loadingController.create({
+        message: "carregant l'usuari",
+        duration: 3000
+      });
+
+      loading.present();
+      let response2 = null
+
+      let token = await store.get('token')
+
+
+      const axiosClient = axios.create({
+        baseURL: 'https://casteaching.test/api',
+        withCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        }
+      })
+      try {
+        response2 = await axiosClient.get('user')
+      } catch (error) {
+        console.log(error);
+      }
+      const user = response2.data
+      await store.set('user', user)
+
+    }
+
+    },
+
+
+
 }
 </script>
 
