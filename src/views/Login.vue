@@ -38,6 +38,7 @@
       </ion-card>
 
     </ion-content>
+
   </ion-page>
 </template>
 
@@ -52,7 +53,7 @@ import {
   IonMenuButton,
   IonPage,
   IonTitle,
-  IonToolbar, loadingController
+  IonToolbar, loadingController,IonToast,toastController
 } from "@ionic/vue";
 import {Device} from "@capacitor/device";
 import axios from 'axios';
@@ -74,19 +75,20 @@ export default {
     IonLabel,
     IonInput,
     IonButton,
-    IonItem
-  }, data () {
-    return {
-      email: '',
-      password: ''
-    }
-  },methods: {
+    IonItem,IonToast,toastController
+  } ,methods: {
     async login() {
       const loading = await loadingController.create({
         message: "carregant l'usuari",
         duration: 1000
       });
+      const toast = await toastController.create({
+        message: 'error amb el login',
+        duration: 40000,
 
+
+        position: "top"
+      });
       loading.present();
       let token=null
       const info =await Device.getInfo();
@@ -110,8 +112,10 @@ export default {
       let response2=null
       try {
         response = await apiClient.post('/sanctum/token',postData)
+
       }catch (error){
-        console.log(error);
+        console.log(error)
+        toast.present();
       }
 
 

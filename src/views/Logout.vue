@@ -65,7 +65,7 @@ export default {
   methods:{
     async logout(){
       const loading = await loadingController.create({
-        message: "carregant l'usuari",
+        message: "surtint",
         duration: 1000
       });
 
